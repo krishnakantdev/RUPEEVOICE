@@ -1,0 +1,42 @@
+program:
+  name: Rupeezy Authorized Person Partner Program
+  benefits:
+    - Zero joining fee
+    - 100% brokerage share
+    - Daily payouts through RISE Portal
+    - RM and central support for partner and client issues
+    - Broker-license backed onboarding
+
+responses:
+  pitch:
+    en: "Hi {name}, this is Rupeezy's partner desk. You can become an Authorized Person with zero joining fee, keep 100% of brokerage share, and receive daily payouts through the RISE Portal. If you already advise investors or have finance contacts, this can create a new income stream without changing your current work. May I quickly understand your current client network?"
+    hi: "Hi {name}, main Rupeezy partner desk se bol raha hoon. Aap zero joining fee ke saath Authorized Person ban sakte hain, 100% brokerage share rakh sakte hain, aur RISE Portal se daily payouts milte hain. Agar aap investors ko guide karte hain ya finance contacts hain, to yeh aapke liye extra income stream ho sakta hai. Kya main aapka current client network samajh sakta hoon?"
+  eligibility:
+    en: "Getting started is simple. We check basic KYC and AP eligibility, share the signup link, and an RM helps you complete onboarding. You do not need to pay a joining fee. How many potential clients or finance contacts could you start with?"
+    hi: "Start karna simple hai. Hum basic KYC aur AP eligibility check karte hain, signup link bhejte hain, aur RM onboarding complete karwata hai. Joining fee nahi hai. Aap roughly kitne potential clients ya finance contacts se start kar sakte hain?"
+  qualify:
+    en: "That helps. To guide you correctly, are you looking to start immediately if the commercials are better, or would you prefer a follow-up with an RM? Also, roughly how many investors, clients, or community members do you actively speak with?"
+    hi: "Samajh gaya. Sahi guidance ke liye bataiye, agar commercials better hain to kya aap immediately start karna chahenge, ya RM follow-up prefer karenge? Aur roughly aap kitne investors, clients, ya community members se actively baat karte hain?"
+  close_hot:
+    en: "Great. I will mark you as a high-priority lead and share your conversation context with an RM. I can also send the WhatsApp signup link now so you can begin onboarding right away."
+    hi: "Great. Main aapko high-priority lead mark kar raha hoon aur RM ko poora conversation context bhej raha hoon. Main WhatsApp signup link bhi abhi bhej sakta hoon taaki onboarding start ho jaye."
+  close_cold:
+    en: "No problem. I will not push this further today. I will log your preference and Rupeezy can share details later if you want to revisit the partner program."
+    hi: "Koi baat nahi. Main aaj isse further push nahi karunga. Aapki preference log kar raha hoon, aur agar baad mein partner program revisit karna ho to Rupeezy details share kar sakta hai."
+
+objections:
+  already_with_broker:
+    en: "That's actually a strong starting point because you already understand the broking business. The key question is whether your current broker gives you 100% brokerage share and daily payouts. Many partners are capped around 60-70% and wait for monthly payouts. Rupeezy is designed to improve those economics."
+    hi: "Yeh actually strong starting point hai, kyunki aap business already samajhte hain. Main sirf yeh check karna chahta hoon: kya current broker aapko 100% brokerage share aur daily payouts deta hai? Kaafi partners 60-70% par cap hote hain aur monthly payout wait karte hain. Rupeezy economics ko better banata hai."
+  small_network:
+    en: "You do not need a huge network on day one. Even a focused base of 20-30 serious investors can work if the trust is strong. Rupeezy gives you the platform, commercials, and payout visibility so you can grow gradually."
+    hi: "Day one par bahut bada network zaroori nahi hai. Agar 20-30 serious investors bhi hain aur trust strong hai, to start ho sakta hai. Rupeezy aapko platform, better commercials, aur payout visibility deta hai taaki aap gradually grow kar sakein."
+  support:
+    en: "Client support is handled by Rupeezy's support and RM ecosystem. You are not left alone to solve platform or account issues. Your role is relationship and acquisition; operational support comes from Rupeezy."
+    hi: "Client support Rupeezy ke support aur RM ecosystem se handle hota hai. Platform ya account issues solve karne ke liye aap akela nahi chhod diye jaate. Aapka role relationship aur acquisition hai; operational support Rupeezy se milta hai."
+  trust:
+    en: "Trust is the right question in financial services. Rupeezy works under its broker license, has a structured AP onboarding process, and gives transparent tracking through the RISE Portal. An RM can also share the official documents before you proceed."
+    hi: "Financial services mein trust sabse important question hai. Rupeezy apne broker license ke under kaam karta hai, AP onboarding structured hai, aur RISE Portal se transparent tracking milti hai. Proceed karne se pehle RM official documents bhi share kar sakta hai."
+  later:
+    en: "Absolutely, I will keep it short. Before I schedule a callback, should I mark you as interested in the zero-fee, 100% brokerage-share model, or should the RM only send details on WhatsApp for now?"
+    hi: "Bilkul, main short rakhta hoon. Callback schedule karne se pehle bas yeh bata dijiye: kya main aapko zero-fee, 100% brokerage-share model mein interested mark karun, ya RM abhi sirf WhatsApp par details bheje?"

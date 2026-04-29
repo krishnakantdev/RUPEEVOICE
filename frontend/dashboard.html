@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RupeeVoice RM Dashboard</title>
+    <style>
+      :root {
+        --ink: #172033;
+        --muted: #637083;
+        --line: #d8dee8;
+        --brand: #0f7b67;
+        --hot: #b42318;
+        --warm: #b76e00;
+        --cold: #52616f;
+        --bg: #f4f7f6;
+        --panel: #ffffff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      nav {
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        padding: 14px clamp(16px, 4vw, 46px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      a {
+        color: var(--brand);
+        font-weight: 800;
+        text-decoration: none;
+      }
+      main {
+        width: min(1200px, calc(100% - 32px));
+        margin: 28px auto;
+      }
+      h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 46px); letter-spacing: 0; }
+      .sub { color: var(--muted); margin: 0 0 24px; }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+      .stat, .lead-card, .empty {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 10px 24px rgba(34, 47, 62, .06);
+      }
+      .stat { padding: 18px; }
+      .stat span { color: var(--muted); font-size: 13px; font-weight: 800; }
+      .stat strong { display: block; font-size: 34px; margin-top: 8px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .column h2 {
+        margin: 8px 0 12px;
+        font-size: 18px;
+      }
+      .lead-card {
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: start;
+      }
+      .badge {
+        border-radius: 999px;
+        padding: 5px 9px;
+        font-size: 12px;
+        color: white;
+        font-weight: 800;
+        flex: none;
+      }
+      .Hot { background: var(--hot); }
+      .Warm { background: var(--warm); }
+      .Cold { background: var(--cold); }
+      .meta, .small {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      details {
+        margin-top: 10px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+      summary {
+        cursor: pointer;
+        color: var(--brand);
+        font-weight: 800;
+      }
+      .transcript {
+        margin-top: 10px;
+        max-height: 240px;
+        overflow: auto;
+        background: #f8fafb;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 13px;
+      }
+      .empty { padding: 22px; color: var(--muted); }
+      @media (max-width: 900px) {
+        .stats, .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <strong>RupeeVoice RM Dashboard</strong>
+      <a href="/">Live Agent</a>
+    </nav>
+    <main>
+      <h1>Conversion Funnel</h1>
+      <p class="sub">Contacted leads, qualification outcome, objections, transcripts, and recommended RM action.</p>
+      <div class="stats">
+        <div class="stat"><span>Contacted</span><strong id="contacted">0</strong></div>
+        <div class="stat"><span>Hot</span><strong id="hot">0</strong></div>
+        <div class="stat"><span>Warm</span><strong id="warm">0</strong></div>
+        <div class="stat"><span>Cold</span><strong id="cold">0</strong></div>
+      </div>
+      <div class="grid">
+        <div class="column"><h2>Hot RM Handoff</h2><div id="Hot"></div></div>
+        <div class="column"><h2>Warm WhatsApp Follow-up</h2><div id="Warm"></div></div>
+        <div class="column"><h2>Cold Nurture</h2><div id="Cold"></div></div>
+      </div>
+    </main>
+
+    <script>
+      function card(item) {
+        const lead = item.lead || {};
+        const objections = item.objections_raised.length ? item.objections_raised.join(", ") : "None";
+        const transcript = item.transcript.map(row => `<p><strong>${row.role}:</strong> ${row.text}</p>`).join("");
+        return `
+          <article class="lead-card">
+            <div class="row">
+              <div>
+                <strong>${lead.name || "Partner Lead"}</strong>
+                <div class="meta">${lead.phone || "No phone"} ${lead.city ? "· " + lead.city : ""}</div>
+              </div>
+              <span class="badge ${item.classification}">${item.classification} ${item.interest_score}</span>
+            </div>
+            <p class="small"><strong>Next:</strong> ${item.recommended_next_action}</p>
+            <p class="small"><strong>Objections:</strong> ${objections}</p>
+            <p class="small"><strong>Topics:</strong> ${item.topics_covered.join(", ") || "Opening"}</p>
+            <details>
+              <summary>Conversation context</summary>
+              <div class="transcript">${transcript || "No transcript yet."}</div>
+            </details>
+          </article>
+        `;
+      }
+
+      async function load() {
+        const response = await fetch("/api/sessions");
+        const data = await response.json();
+        document.getElementById("contacted").textContent = data.funnel.contacted;
+        document.getElementById("hot").textContent = data.funnel.Hot;
+        document.getElementById("warm").textContent = data.funnel.Warm;
+        document.getElementById("cold").textContent = data.funnel.Cold;
+        for (const bucket of ["Hot", "Warm", "Cold"]) {
+          const items = data.sessions.filter(item => item.classification === bucket);
+          document.getElementById(bucket).innerHTML = items.length ? items.map(card).join("") : `<div class="empty">No ${bucket.toLowerCase()} leads yet.</div>`;
+        }
+      }
+
+      load();
+      setInterval(load, 5000);
+    </script>
+  </body>
+</html>
